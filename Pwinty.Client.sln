@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pwinty.Client", "Pwinty.Client\Pwinty.Client.csproj", "{D91040B5-C09A-48FA-A36A-B452AA937646}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pwinty.Client.Test", "Pwinty.Client.Test\Pwinty.Client.Test.csproj", "{20B96B7A-EE5C-4954-9241-BBC492B4C27F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,6 +18,12 @@ Global
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Sandbox|Any CPU.ActiveCfg = Sandbox|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Sandbox|Any CPU.Build.0 = Sandbox|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Sandbox|Any CPU.ActiveCfg = Release|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Sandbox|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

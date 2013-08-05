@@ -20,6 +20,11 @@ namespace Pwinty.Client
         [Description("Cancelled")]
         Cancelled
     }
+    public enum QualityLevel
+    {
+        STANDARD,
+        PRO
+    }
     public enum Payment
     {
         InvoiceMe,
@@ -27,37 +32,51 @@ namespace Pwinty.Client
     }
     public class Order
     {
-        public long Id { get; set; }
-        public string RecipientName { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Country { get; set; }
-        public string StateOrCounty { get; set; }
-        public string AddressTownOrCity { get; set; }
-        public string PostalOrZipCode { get; set; }
-        public string TextOnReverse { get; set; }
-        public OrderStatus Status { get; set; }
-        public Payment Payment { get; set; }
-        public string PaymentUrl { get; set; }
-        public Dictionary<string, string> ToRequest()
+        public Order()
         {
-            Dictionary<string, string> requestDict = new Dictionary<string, string>();
-            if (Id > 0)
-            {
-                requestDict.Add("id", Id.ToString());
-            }
-            requestDict.Add("recipientName", RecipientName);
-            requestDict.Add("address1", Address1);
-            requestDict.Add("address2", Address2);
-            requestDict.Add("stateOrCounty", StateOrCounty);
-            requestDict.Add("country", Country);
-            requestDict.Add("addressTownOrCity", AddressTownOrCity);
-            requestDict.Add("postalOrZipCode", PostalOrZipCode);
-            requestDict.Add("textOnReverse", TextOnReverse);
-            requestDict.Add("payment", Payment.ToString());
-            return requestDict;
+            qualityLevel = QualityLevel.PRO;
         }
-        public List<OrderItem> Photos { get; set; }
+        public long id { get; set; }
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+        public string postalOrZipCode { get; set; }
+        public string countryCode { get; set; }
+        public string addressTownOrCity { get; set; }
+        public string recipientName { get; set; }
+        public string stateOrCounty { get; set; }
+        public string status { get; set; }
+        public string payment { get; set; }
+        public string paymentUrl { get; set; }
+        public QualityLevel qualityLevel { get; set; }
+        public List<OrderItem> photos { get; set; }
     }
+    public class OrderRequest
+    {
+        public OrderRequest()
+        {
+            qualityLevel = QualityLevel.PRO;
+        }
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+        public string postalOrZipCode { get; set; }
+        public string countryCode { get; set; }
+        public string addressTownOrCity { get; set; }
+        public string recipientName { get; set; }
+        public string stateOrCounty { get; set; }
+        public Payment payment { get; set; }
+        public QualityLevel qualityLevel { get; set; }
+        public List<OrderItem> photos { get; set; }
+    }
+    public class CreateOrderRequest :OrderRequest
+    {
+        
+    }
+    public class UpdateOrderRequest : OrderRequest
+    {
+        public long id { get; set; }
+
+    }
+
+
 }
 

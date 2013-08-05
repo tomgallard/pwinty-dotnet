@@ -23,6 +23,17 @@ namespace Pwinty.Client
         ShrinkToFit
     }
 
+    public class OrderItemRequest
+    {
+        public long Id { get; set; }
+        public string Type { get; set; }
+        public string Url { get; set; }
+        public int Copies { get; set; }
+        public SizingOption Sizing { get; set; }
+        public long OrderId { get; set; }
+        public decimal? Price { get; set; }
+        public string Md5Hash { get; set; }
+    }
     public class OrderItem
     {
         public long Id { get; set; }
@@ -33,5 +44,6 @@ namespace Pwinty.Client
         public SizingOption Sizing { get; set; }
         public long OrderId { get; set; }
         public decimal? Price { get; set; }
+        public string Md5Hash { get; set; }
     }
 }

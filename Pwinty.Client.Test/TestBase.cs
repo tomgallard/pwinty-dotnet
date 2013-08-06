@@ -18,5 +18,21 @@ namespace Pwinty.Client.Test
             }
             }
         }
+        protected  Order CreateEmptyOrderWithValidAddress(PwintyApi api)
+        {
+            var result = api.Order.Create(new CreateOrderRequest()
+            {
+                countryCode = "GB",
+                address1 = "Linton Travel Tavern",
+                address2 = "Nr Longstanton Spice Museum",
+                addressTownOrCity = "NORWICH",
+                postalOrZipCode = "AGP1",
+                stateOrCounty = "NORWICH",
+                payment = Payment.InvoiceMe,
+                qualityLevel = QualityLevel.PRO
+            });
+            Assert.IsTrue(result.id > 0);
+            return result;
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Pwinty.Client
 {
-    public class SubmissionReadinessReport
+    public class SubmissionReadinessReport :BaseItem
     {
         public SubmissionReadinessReport()
         {

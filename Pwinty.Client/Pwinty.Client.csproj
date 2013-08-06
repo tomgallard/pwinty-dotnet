@@ -59,11 +59,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseItem.cs" />
     <Compile Include="BaseResource.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="IBaseItem.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
     <Compile Include="OrderItemReport.cs" />
+    <Compile Include="OrderList.cs" />
     <Compile Include="PwintyApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwintyApiException.cs" />

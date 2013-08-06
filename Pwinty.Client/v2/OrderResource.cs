@@ -50,7 +50,7 @@ namespace Pwinty.Client
                 Resource = _orderPath,
                 Method = Method.GET
             };
-            var response = Client.ExecuteWithErrorCheck<List<Order>>(request);
+            var response = Client.ExecuteWithErrorCheck<OrderList>(request);
             return response.Data;
         }
         public Order Create(CreateOrderRequest o)
@@ -61,6 +61,7 @@ namespace Pwinty.Client
                 Method = Method.POST,
                 
             };
+            request.RequestFormat = DataFormat.Json;
             request.AddObject(o);
 
             var response = Client.ExecuteWithErrorCheck<Order>(request);

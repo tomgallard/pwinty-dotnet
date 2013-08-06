@@ -30,7 +30,7 @@ namespace Pwinty.Client
         InvoiceMe,
         InvoiceRecipient
     }
-    public class Order
+    public class Order :BaseItem
     {
         public Order()
         {
@@ -44,8 +44,8 @@ namespace Pwinty.Client
         public string addressTownOrCity { get; set; }
         public string recipientName { get; set; }
         public string stateOrCounty { get; set; }
-        public string status { get; set; }
-        public string payment { get; set; }
+        public OrderStatus status { get; set; }
+        public Payment payment { get; set; }
         public string paymentUrl { get; set; }
         public QualityLevel qualityLevel { get; set; }
         public List<OrderItem> photos { get; set; }

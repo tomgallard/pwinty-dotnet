@@ -9,8 +9,8 @@ namespace Pwinty.Client
 {
     public class OrderItemResource :BaseResource
     {
-          private const string _orderItemPath = "/Orders/{orderId}/Photos";
-          private const string _deleteItemPath = "/Orders/{orderId}/Photos/{photoId}";
+          private const string _orderItemPath = "v2/Orders/{orderId}/Photos";
+          private const string _deleteItemPath = "v2/Orders/{orderId}/Photos/{photoId}";
           public OrderItemResource()
           {
           }
@@ -22,7 +22,7 @@ namespace Pwinty.Client
                   Method = Method.POST
               };
               request.AddParameter("orderId", orderId, ParameterType.UrlSegment);
-              request.AddObject(orderItem);
+              request.AddParameter("data", new RestSharp.Serializers.JsonSerializer().Serialize(orderItem), ParameterType.GetOrPost);
               byte[] allData = new byte[fileData.Length];
               fileData.Read(allData,0,allData.Length);
               request.AddFile("image",allData,"image.jpg");

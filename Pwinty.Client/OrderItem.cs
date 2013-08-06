@@ -34,7 +34,7 @@ namespace Pwinty.Client
         public decimal? Price { get; set; }
         public string Md5Hash { get; set; }
     }
-    public class OrderItem
+    public class OrderItem :BaseItem
     {
         public long Id { get; set; }
         public string Type { get; set; }

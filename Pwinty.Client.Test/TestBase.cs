@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
 
 namespace Pwinty.Client.Test
 {
@@ -18,7 +19,7 @@ namespace Pwinty.Client.Test
             }
             }
         }
-        protected  Order CreateEmptyOrderWithValidAddress(PwintyApi api)
+        protected  Order CreateEmptyOrderWithValidAddress(PwintyApi api,Payment paymentOption = Payment.InvoiceMe)
         {
             var result = api.Order.Create(new CreateOrderRequest()
             {
@@ -28,11 +29,26 @@ namespace Pwinty.Client.Test
                 addressTownOrCity = "NORWICH",
                 postalOrZipCode = "AGP1",
                 stateOrCounty = "NORWICH",
-                payment = Payment.InvoiceMe,
+                payment = paymentOption,
                 qualityLevel = QualityLevel.PRO
             });
             Assert.IsTrue(result.id > 0);
             return result;
+        }
+        protected void Add_item_to_order(PwintyApi api,long orderId)
+        {
+            using (var dummyImage = File.OpenRead("itemtest.jpg"))
+            {
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    OrderId = orderId,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Type = "4x6"
+                };
+                var result = api.OrderItems.CreateWithData(orderId, itemToAdd, dummyImage);
+                Assert.AreEqual(OrderItemStatus.Ok, result.Status);
+            }
         }
     }
 }

@@ -45,5 +45,10 @@ namespace Pwinty.Client.Test
             Configuration.RestApiKey = "bar";
             Assert.AreEqual("bar", Configuration.RestApiKey);
         }
+        [TestCleanup]
+        public void Cleanup()
+        {
+            Configuration.LoadFromAppConfig();
+        }
     }
 }

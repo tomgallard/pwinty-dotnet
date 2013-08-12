@@ -63,6 +63,7 @@
     <Compile Include="BaseResource.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="IBaseItem.cs" />
+    <Compile Include="Md5HashCalculator.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
     <Compile Include="OrderItemReport.cs" />

@@ -100,9 +100,21 @@ namespace Pwinty.Client
                 Method = Method.POST
             };
             request.AddParameter("orderId", orderId.ToString(),ParameterType.UrlSegment);
-            request.AddParameter("status", "Submitted");
+            request.AddParameter("status", "Submitted",ParameterType.GetOrPost);
             var response = Client.ExecuteWithErrorCheck(request);
         }
 
+
+        public void SubmitForPayment(long orderId)
+        {
+            var request = new RestRequest
+            {
+                Resource = _getPath + "/Status",
+                Method = Method.POST
+            };
+            request.AddParameter("orderId", orderId.ToString(), ParameterType.UrlSegment);
+            request.AddParameter("status", "AwaitingPayment", ParameterType.GetOrPost);
+            var response = Client.ExecuteWithErrorCheck(request);
+        }
     }
 }

@@ -61,6 +61,40 @@ namespace Pwinty.Client.Test
             }
         }
         [TestMethod]
+        public void Cant_submit_order_with_invoice_recipient()
+        {
+            try
+            {
+                PwintyApi api = new PwintyApi();
+                var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
+                Add_item_to_order(api, result.id);
+                api.Order.Submit(result.id);
+                Assert.Fail("Should throw error on submit empty order");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode, "Should return bad request");
+            }
+        }
+        [TestMethod]
+        public void Invoice_recipient_order_returns_payment_url()
+        {
+
+                PwintyApi api = new PwintyApi();
+                var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
+                Assert.IsNotNull(result.paymentUrl, "Payment url should be available");
+                Add_item_to_order(api, result.id);
+                api.Order.SubmitForPayment(result.id);
+        }
+        [TestMethod]
+        public void Can_submit_order_with_invoice_me()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api);
+            Add_item_to_order(api, result.id);
+            api.Order.Submit(result.id);
+        }
+        [TestMethod]
         public void Cannot_Create_Order_With_MadeUp_CountryCode()
         {
             try

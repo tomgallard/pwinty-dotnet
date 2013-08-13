@@ -51,8 +51,8 @@ namespace Pwinty.Client
                   Resource = _deleteItemPath,
                   Method = Method.DELETE
               };
-              request.AddParameter("orderId", orderId);
-              request.AddParameter("id", id);
+              request.AddParameter("orderId", orderId,ParameterType.UrlSegment);
+              request.AddParameter("photoId", id,ParameterType.UrlSegment);
               var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
           }
     }

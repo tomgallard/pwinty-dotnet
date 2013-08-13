@@ -92,6 +92,55 @@ namespace Pwinty.Client.Test
 
         }
         [TestMethod]
+        public void Delete_item_from_order()
+        {
+            PwintyApi api = new PwintyApi();
+            var order = base.CreateEmptyOrderWithValidAddress(api);
+
+            OrderItemRequest itemToAdd = new OrderItemRequest()
+            {
+                Copies = 1,
+                OrderId = order.id,
+                Sizing = SizingOption.ShrinkToExactFit,
+                Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
+                Type = "4x6"
+            };
+            var result = api.OrderItems.Create(order.id, itemToAdd);
+            api.OrderItems.Delete(result.Id, order.id);
+
+            order = api.Order.Get(order.id);
+            Assert.AreEqual(0, order.photos.Count, "Should be no photos left in order");
+        }
+        [TestMethod]
+        public void Cant_delete_item_from_submitted_order()
+        {
+            PwintyApi api = new PwintyApi();
+            var order = base.CreateEmptyOrderWithValidAddress(api);
+
+            OrderItemRequest itemToAdd = new OrderItemRequest()
+            {
+                Copies = 1,
+                OrderId = order.id,
+                Sizing = SizingOption.ShrinkToExactFit,
+                Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
+                Type = "4x6"
+            };
+            var result = api.OrderItems.Create(order.id, itemToAdd);
+            api.Order.Submit(order.id);
+            try
+            {
+                api.OrderItems.Delete(result.Id, order.id);
+                Assert.Fail("Should not be able to delete photo from submitted order");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.AreEqual(HttpStatusCode.Forbidden, exc.StatusCode);
+                Assert.IsNotNull(exc.Message);
+            }
+            order = api.Order.Get(order.id);
+            Assert.AreEqual(1, order.photos.Count, "Should still be one photo in order");
+        }
+        [TestMethod]
         public void Add_item_to_order_with_md5Hash()
         {
 

@@ -24,6 +24,52 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
         }
         [TestMethod]
+        public void Cancel_Order()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = api.Order.Create(new CreateOrderRequest()
+            {
+                countryCode = "GB",
+                payment = Payment.InvoiceMe,
+                qualityLevel = QualityLevel.PRO
+            });
+            api.Order.Cancel(result.id);
+            var order = api.Order.Get(result.id);
+            Assert.AreEqual(OrderStatus.Cancelled, order.status);
+        }
+        [TestMethod]
+        public void Cancel_Submitted_Order_Causes_Error()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api);
+            Add_item_to_order(api, result.id);
+            api.Order.Submit(result.id);
+            try
+            {
+                api.Order.Cancel(result.id);
+                Assert.Fail("Should throw error when cancel submitted order");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.IsNotNull(exc.Message);
+                Assert.AreEqual(HttpStatusCode.Forbidden, exc.StatusCode, "Should return status code forbidden");
+            }
+        }
+        [TestMethod]
+        public void Cancel_Order_Using_Delete_Endpoint()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = api.Order.Create(new CreateOrderRequest()
+            {
+                countryCode = "GB",
+                payment = Payment.InvoiceMe,
+                qualityLevel = QualityLevel.PRO
+            });
+            api.Order.Delete(result.id);
+            var order = api.Order.Get(result.id);
+            Assert.AreEqual(OrderStatus.Cancelled, order.status);
+        }
+        [TestMethod]
         public void Submit_Order_Without_Items()
         {
             try

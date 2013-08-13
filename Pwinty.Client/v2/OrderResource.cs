@@ -27,7 +27,7 @@ namespace Pwinty.Client
                 Resource = _getPath +"/Status",
                 Method = Method.POST
             };
-            request.AddParameter("id", orderId.ToString());
+            request.AddParameter("orderId", orderId.ToString(), ParameterType.UrlSegment);
             request.AddParameter("status", "Cancelled");
             var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
 
@@ -39,7 +39,7 @@ namespace Pwinty.Client
                 Resource = _getPath,
                 Method = Method.GET
             };
-            request.AddParameter("id", orderId.ToString(),ParameterType.UrlSegment);
+            request.AddParameter("orderId", orderId.ToString(),ParameterType.UrlSegment);
             var response = Client.ExecuteWithErrorCheck<Order>(request);
             return response.Data;
         }
@@ -74,7 +74,7 @@ namespace Pwinty.Client
                 Resource = _getPath,
                 Method = Method.PUT
             };
-            request.AddParameter("orderId", o.id);
+            request.AddParameter("orderId", o.id.ToString(), ParameterType.UrlSegment);
             request.AddObject(o);
 
             var response = Client.ExecuteWithErrorCheck<Order>(request);
@@ -114,6 +114,17 @@ namespace Pwinty.Client
             };
             request.AddParameter("orderId", orderId.ToString(), ParameterType.UrlSegment);
             request.AddParameter("status", "AwaitingPayment", ParameterType.GetOrPost);
+            var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
+        }
+
+        public void Delete(long orderId)
+        {
+            var request = new RestRequest
+            {
+                Resource = _getPath,
+                Method = Method.DELETE
+            };
+            request.AddParameter("orderId", orderId.ToString(),ParameterType.UrlSegment);
             var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
         }
     }

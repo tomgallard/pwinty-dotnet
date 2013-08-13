@@ -53,7 +53,7 @@ namespace Pwinty.Client
               };
               request.AddParameter("orderId", orderId);
               request.AddParameter("id", id);
-              var response = Client.ExecuteWithErrorCheck(request);
+              var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
           }
     }
 }

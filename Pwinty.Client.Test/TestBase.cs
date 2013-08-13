@@ -28,14 +28,15 @@ namespace Pwinty.Client.Test
                 address2 = "Nr Longstanton Spice Museum",
                 addressTownOrCity = "NORWICH",
                 postalOrZipCode = "AGP1",
-                stateOrCounty = "NORWICH",
+                recipientName = "Alan Gordan Partridge",
+                stateOrCounty = "East Anglia",
                 payment = paymentOption,
                 qualityLevel = QualityLevel.PRO
             });
             Assert.IsTrue(result.id > 0);
             return result;
         }
-        protected void Add_item_to_order(PwintyApi api,long orderId)
+        protected void Add_item_to_order(PwintyApi api,long orderId,decimal? price = null)
         {
             using (var dummyImage = File.OpenRead("itemtest.jpg"))
             {
@@ -44,7 +45,8 @@ namespace Pwinty.Client.Test
                     Copies = 1,
                     OrderId = orderId,
                     Sizing = SizingOption.ShrinkToExactFit,
-                    Type = "4x6"
+                    Type = "4x6",
+                    Price = price
                 };
                 var result = api.OrderItems.CreateWithData(orderId, itemToAdd, dummyImage);
                 Assert.AreEqual(OrderItemStatus.Ok, result.Status);

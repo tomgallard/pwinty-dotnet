@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace Pwinty.Client.Test
 {
@@ -38,7 +39,21 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.Forbidden, exc.StatusCode);
             }
         }
-
+        [TestMethod]
+        public void Submit_Order_And_Retrieve_Payment_Url()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api,Payment.InvoiceRecipient);
+            Add_item_to_order(api, result.id,2M);
+            api.Order.SubmitForPayment(result.id);
+            var paymentUrl = result.paymentUrl;
+            Console.WriteLine("Payment url is " + paymentUrl);
+            using (WebClient client = new WebClient())
+            {
+                var webResult = client.DownloadString(paymentUrl);
+                Console.WriteLine(webResult);
+            }
+        }
      
         
         [TestMethod]
@@ -83,7 +98,7 @@ namespace Pwinty.Client.Test
                 PwintyApi api = new PwintyApi();
                 var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
                 Assert.IsNotNull(result.paymentUrl, "Payment url should be available");
-                Add_item_to_order(api, result.id);
+                Add_item_to_order(api, result.id,2M);
                 api.Order.SubmitForPayment(result.id);
         }
         [TestMethod]

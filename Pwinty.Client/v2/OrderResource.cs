@@ -29,7 +29,7 @@ namespace Pwinty.Client
             };
             request.AddParameter("id", orderId.ToString());
             request.AddParameter("status", "Cancelled");
-            var response = Client.ExecuteWithErrorCheck(request);
+            var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
 
         }
         public Order Get(long orderId)
@@ -101,7 +101,7 @@ namespace Pwinty.Client
             };
             request.AddParameter("orderId", orderId.ToString(),ParameterType.UrlSegment);
             request.AddParameter("status", "Submitted",ParameterType.GetOrPost);
-            var response = Client.ExecuteWithErrorCheck(request);
+            var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
         }
 
 
@@ -114,7 +114,7 @@ namespace Pwinty.Client
             };
             request.AddParameter("orderId", orderId.ToString(), ParameterType.UrlSegment);
             request.AddParameter("status", "AwaitingPayment", ParameterType.GetOrPost);
-            var response = Client.ExecuteWithErrorCheck(request);
+            var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
         }
     }
 }

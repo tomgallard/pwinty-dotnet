@@ -45,6 +45,8 @@ namespace Pwinty.Client
         public string recipientName { get; set; }
         public string stateOrCounty { get; set; }
         public OrderStatus status { get; set; }
+        public string trackingNumber { get; set; }
+        public string trackingUrl { get; set; }
         public Payment payment { get; set; }
         public string paymentUrl { get; set; }
         public QualityLevel qualityLevel { get; set; }
@@ -52,24 +54,23 @@ namespace Pwinty.Client
     }
     public class OrderRequest
     {
-        public OrderRequest()
-        {
-            qualityLevel = QualityLevel.PRO;
-        }
+       
         public string address1 { get; set; }
         public string address2 { get; set; }
         public string postalOrZipCode { get; set; }
-        public string countryCode { get; set; }
         public string addressTownOrCity { get; set; }
         public string recipientName { get; set; }
         public string stateOrCounty { get; set; }
-        public Payment payment { get; set; }
-        public QualityLevel qualityLevel { get; set; }
-        public List<OrderItem> photos { get; set; }
     }
     public class CreateOrderRequest :OrderRequest
     {
-        
+        public CreateOrderRequest()
+        {
+            qualityLevel = QualityLevel.PRO;
+        }
+        public Payment payment { get; set; }
+        public QualityLevel qualityLevel { get; set; }
+        public string countryCode { get; set; }
     }
     public class UpdateOrderRequest : OrderRequest
     {

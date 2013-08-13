@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CatalogueTests.cs" />
     <Compile Include="ConfigurationTest.cs" />
     <Compile Include="OrderItemTest.cs" />
     <Compile Include="OrderTest.cs" />

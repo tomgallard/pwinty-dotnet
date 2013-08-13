@@ -24,7 +24,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
         }
         [TestMethod]
-        public void Cancel_Order()
+        public void Cancel_order()
         {
             PwintyApi api = new PwintyApi();
             var result = api.Order.Create(new CreateOrderRequest()
@@ -37,6 +37,48 @@ namespace Pwinty.Client.Test
             var order = api.Order.Get(result.id);
             Assert.AreEqual(OrderStatus.Cancelled, order.status);
         }
+        [TestMethod]
+        public void Check_order_submission_status()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api);
+            Add_item_to_order(api, result.id);
+            var status = api.Order.CheckReadyForSubmit(result.id);
+            Assert.IsTrue(status.isValid, "Order should be valid for submit");
+        }
+        [TestMethod]
+        public void Check_order_submission_status_when_errors()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api);
+            var status = api.Order.CheckReadyForSubmit(result.id);
+            Assert.IsFalse(status.isValid, "Order should not be valid for submit with no items");
+            Assert.IsTrue(status.generalErrors.Count > 0, "Order should have general errors");
+        }
+        [TestMethod]
+        public void Update_order_address()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api);
+            var updateRequest = new UpdateOrderRequest()
+            {
+                address1 = "new address 1",
+                id = result.id,
+                address2 = "new address 2",
+                addressTownOrCity = "newtown",
+                postalOrZipCode = "NN1 1NN",
+                recipientName = "mr new",
+                stateOrCounty = "NEWARK"
+            };
+            var updatedOrder = api.Order.Update(updateRequest);
+            Assert.AreEqual(updateRequest.address1,updatedOrder.address1);
+            Assert.AreEqual(updateRequest.address2,updatedOrder.address2);
+            Assert.AreEqual(updateRequest.addressTownOrCity,updatedOrder.addressTownOrCity);
+            Assert.AreEqual(updateRequest.postalOrZipCode,updatedOrder.postalOrZipCode);
+            Assert.AreEqual(updateRequest.recipientName,updatedOrder.recipientName);
+            Assert.AreEqual(updateRequest.stateOrCounty,updatedOrder.stateOrCounty);
+        }
+        
         [TestMethod]
         public void Cancel_Submitted_Order_Causes_Error()
         {

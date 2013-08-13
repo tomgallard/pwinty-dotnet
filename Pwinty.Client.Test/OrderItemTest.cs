@@ -74,6 +74,79 @@ namespace Pwinty.Client.Test
             }
         }
         [TestMethod]
+        public void Add_item_with_invalid_name()
+        {
+            try
+            {
+                PwintyApi api = new PwintyApi();
+                var order = base.CreateEmptyOrderWithValidAddress(api);
+
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    OrderId = order.id,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
+                    Type = "4x61"
+                };
+                var result = api.OrderItems.Create(order.id, itemToAdd);
+                Assert.Fail("Should throw error when invalid item size");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.IsNotNull(exc.Message);
+                Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
+            }
+        }
+        [TestMethod]
+        public void Add_valid_item_unsupported_country()
+        {
+            try
+            {
+                PwintyApi api = new PwintyApi();
+                var order = base.CreateEmptyOrderWithValidAddress(api,countryCode : "FR");
+
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    OrderId = order.id,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
+                    Type = "4x6"
+                };
+                var result = api.OrderItems.Create(order.id, itemToAdd);
+                Assert.Fail("Should throw error when item doesn't exist for country");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.IsNotNull(exc.Message);
+                Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
+            }
+        }
+        [TestMethod]
+        public void Get_item_by_id()
+        {
+            PwintyApi api = new PwintyApi();
+            var order = base.CreateEmptyOrderWithValidAddress(api,Payment.InvoiceRecipient);
+
+            OrderItemRequest itemToAdd = new OrderItemRequest()
+            {
+                Copies = 1,
+                OrderId = order.id,
+                Price = 2.7M,
+                Sizing = SizingOption.ShrinkToExactFit,
+                Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
+                Type = "4x6"
+            };
+            var result = api.OrderItems.Create(order.id, itemToAdd);
+            result = api.OrderItems.Get(order.id, result.Id);
+            Assert.AreEqual(itemToAdd.Copies, result.Copies);
+            Assert.AreEqual(itemToAdd.Sizing, result.Sizing);
+            Assert.AreEqual(itemToAdd.Url, result.Url);
+            Assert.AreEqual(itemToAdd.Type, result.Type);
+            Assert.AreEqual(itemToAdd.Price, result.Price);
+        }
+        [TestMethod]
         public void Add_item_to_order_with_url()
         {
             PwintyApi api = new PwintyApi();

@@ -27,6 +27,12 @@ namespace Pwinty.Client
                     return new OrderItemResource();
             }
         }
-
+        public CatalogueResource Catalogue
+        {
+            get
+            {
+                return new CatalogueResource();
+            }
+        }
     }
 }

@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="BaseItem.cs" />
     <Compile Include="BaseResource.cs" />
+    <Compile Include="Catalogue.cs" />
+    <Compile Include="CatalogueItem.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="IBaseItem.cs" />
     <Compile Include="Md5HashCalculator.cs" />
@@ -72,7 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwintyApiException.cs" />
     <Compile Include="RestSharpExtensions.cs" />
+    <Compile Include="ShippingRate.cs" />
     <Compile Include="SubmissionReadinessReport.cs" />
+    <Compile Include="v2\CatalogueResource.cs" />
     <Compile Include="v2\OrderItemResource.cs" />
     <Compile Include="v2\OrderResource.cs" />
   </ItemGroup>

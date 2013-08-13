@@ -19,11 +19,11 @@ namespace Pwinty.Client.Test
             }
             }
         }
-        protected  Order CreateEmptyOrderWithValidAddress(PwintyApi api,Payment paymentOption = Payment.InvoiceMe)
+        protected  Order CreateEmptyOrderWithValidAddress(PwintyApi api,Payment paymentOption = Payment.InvoiceMe,string countryCode = "GB")
         {
             var result = api.Order.Create(new CreateOrderRequest()
             {
-                countryCode = "GB",
+                countryCode = countryCode,
                 address1 = "Linton Travel Tavern",
                 address2 = "Nr Longstanton Spice Museum",
                 addressTownOrCity = "NORWICH",
@@ -34,6 +34,7 @@ namespace Pwinty.Client.Test
                 qualityLevel = QualityLevel.PRO
             });
             Assert.IsTrue(result.id > 0);
+            Assert.AreEqual(result.countryCode, countryCode);
             return result;
         }
         protected void Add_item_to_order(PwintyApi api,long orderId,decimal? price = null)

@@ -55,5 +55,18 @@ namespace Pwinty.Client
               request.AddParameter("photoId", id,ParameterType.UrlSegment);
               var response = Client.ExecuteWithErrorCheck<BaseItem>(request);
           }
+
+          public OrderItem Get(long orderId, long photoId)
+          {
+              var request = new RestRequest
+              {
+                  Resource = _deleteItemPath,
+                  Method = Method.GET
+              };
+              request.AddParameter("orderId", orderId, ParameterType.UrlSegment);
+              request.AddParameter("photoId", photoId, ParameterType.UrlSegment);
+              var response = Client.ExecuteWithErrorCheck<OrderItem>(request);
+              return response.Data;
+          }
     }
 }

@@ -14,5 +14,11 @@ namespace Pwinty.Client.Test
             driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 20));
             return driver.FindElement(By.XPath(String.Format("//*[contains(.,'{0}')]",searchText)));
         }
+        public static void ClickWithJavascript(this IWebElement element, IWebDriver driver)
+        {
+            IJavaScriptExecutor js = driver as IJavaScriptExecutor;
+            js.ExecuteScript("arguments[0].click();", element);
+        }
+
     }
 }

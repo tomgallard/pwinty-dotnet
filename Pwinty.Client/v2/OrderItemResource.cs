@@ -22,7 +22,7 @@ namespace Pwinty.Client
                   Method = Method.POST
               };
               request.AddParameter("orderId", orderId, ParameterType.UrlSegment);
-              request.AddParameter("data", new RestSharp.Serializers.JsonSerializer().Serialize(orderItem), ParameterType.GetOrPost);
+              request.AddObject(orderItem);
               byte[] allData = new byte[fileData.Length];
               fileData.Read(allData,0,allData.Length);
               request.AddFile("image",allData,"image.jpg");

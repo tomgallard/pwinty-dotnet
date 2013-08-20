@@ -24,22 +24,6 @@ namespace CFS.PhotoPrintApi.WebApiCallbackTest
             var callbackResult = tcs.GetAwaiter().GetResult();
             Assert.AreEqual(result.id, callbackResult.OrderId);
         }
-        [TestMethod]
-        public void Receives_Callback_On_Submit_Order()
-        {
-            PwintyApi api = new PwintyApi();
 
-            var result = api.Order.Create(new CreateOrderRequest()
-            {
-                countryCode = "GB",
-                payment = Payment.InvoiceRecipient,
-                qualityLevel = QualityLevel.PRO
-            });
-
-            Assert.IsTrue(result.id > 0);
-            var tcs = CallbackController.RegisterTaskCompletionSource((int)result.id);
-            var callbackResult = tcs.GetAwaiter().GetResult();
-            Assert.AreEqual(result.id, callbackResult.OrderId);
-        }
     }
 }

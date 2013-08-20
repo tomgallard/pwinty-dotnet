@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Pwinty.Client.Test
@@ -59,7 +60,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(originalOrder.addressTownOrCity, seleniumInstance.FindElementById("AddressTownOrCity").GetAttribute("value"));
             Assert.AreEqual(originalOrder.stateOrCounty, seleniumInstance.FindElementById("StateOrCounty").GetAttribute("value"));
             var continueButton = seleniumInstance.FindElementById("btnAddressEntered") as IWebElement;
-            continueButton.Click();
+            continueButton.ClickWithJavascript(seleniumInstance);
         }
 
         private void CheckOrderSummary(FirefoxDriver seleniumInstance)
@@ -67,10 +68,10 @@ namespace Pwinty.Client.Test
             //should charge vat
             var vatEl = seleniumInstance.FindElementByText("VAT");
             Assert.IsNotNull(vatEl);
-            var totalEl = seleniumInstance.FindElementByText("£4.34");
-            Assert.IsNotNull(totalEl,"Should have total cost of £4.34 on page");
+            var totalEl = seleniumInstance.FindElementByText("£4.79");
+            Assert.IsNotNull(totalEl,"Should have total cost of £4.79 on page");
             var continueButton = seleniumInstance.FindElementById("btnConfirmAndPay") as IWebElement;
-            continueButton.Click();
+            continueButton.ClickWithJavascript(seleniumInstance);
         }
 
         private void EnterDummyPaymentOptions(FirefoxDriver seleniumInstance,StripeCardDetails cardDetails)
@@ -86,7 +87,7 @@ namespace Pwinty.Client.Test
             cvc.SendKeys(cardDetails.CVC);
 
             var submitButton = seleniumInstance.FindElementByCssSelector(".blue.submit");
-            submitButton.Click();
+            submitButton.ClickWithJavascript(seleniumInstance);
             
 
         }

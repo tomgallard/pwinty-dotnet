@@ -24,12 +24,11 @@ namespace CFS.PhotoPrintApi.WebApiCallbackTest
             return "";
         }
 
-        internal static TaskCompletionSource<CallbackArgs> RegisterTaskCompletionSource(int orderId)
+        internal static Task<CallbackArgs> RegisterTaskCompletionSource(int orderId)
         {
             var tcs = new TaskCompletionSource<CallbackArgs>();
-            Task t = tcs.Task;
             _eventDict[orderId] = tcs;
-            return tcs;
+            return tcs.Task;
         }
     }
     public class CallbackArgs

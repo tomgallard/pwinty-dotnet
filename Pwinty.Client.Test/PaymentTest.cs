@@ -58,7 +58,6 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(originalOrder.address2, seleniumInstance.FindElementById("Address2").GetAttribute("value"));
             Assert.AreEqual(originalOrder.addressTownOrCity, seleniumInstance.FindElementById("AddressTownOrCity").GetAttribute("value"));
             Assert.AreEqual(originalOrder.stateOrCounty, seleniumInstance.FindElementById("StateOrCounty").GetAttribute("value"));
-            Assert.AreEqual(originalOrder.countryCode, seleniumInstance.FindElementById("CountryCode").GetAttribute("value"));
             var continueButton = seleniumInstance.FindElementById("btnAddressEntered") as IWebElement;
             continueButton.Click();
         }

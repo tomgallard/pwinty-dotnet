@@ -24,6 +24,22 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
         }
         [TestMethod]
+        public void Create_International_Order()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = api.Order.Create(new CreateOrderRequest()
+            {
+                countryCode = "GB",
+                destinationCountryCode = "FR",
+                payment = Payment.InvoiceRecipient,
+                qualityLevel = QualityLevel.PRO
+            });
+            Assert.IsTrue(result.id > 0);
+            Assert.AreEqual(Payment.InvoiceRecipient, result.payment);
+            Assert.AreEqual(QualityLevel.PRO, result.qualityLevel);
+            Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
+        }
+        [TestMethod]
         public void Cancel_order()
         {
             PwintyApi api = new PwintyApi();

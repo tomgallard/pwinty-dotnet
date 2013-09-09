@@ -71,6 +71,7 @@ namespace Pwinty.Client
         public Payment payment { get; set; }
         public QualityLevel qualityLevel { get; set; }
         public string countryCode { get; set; }
+        public string destinationCountryCode { get; set; }
     }
     public class UpdateOrderRequest : OrderRequest
     {

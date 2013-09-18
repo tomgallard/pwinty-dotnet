@@ -24,6 +24,13 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
         }
         [TestMethod]
+        public void List_Orders()
+        {
+            PwintyApi api = new PwintyApi();
+            var orders = api.Order.Get();
+            Assert.IsNotNull(orders);
+        }
+        [TestMethod]
         public void Create_International_Order()
         {
             PwintyApi api = new PwintyApi();

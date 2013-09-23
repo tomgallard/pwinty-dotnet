@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RestSharp;
+using System.Collections;
 
 namespace Pwinty.Client
 {
@@ -20,6 +21,25 @@ namespace Pwinty.Client
                     errorMsg = response.Data.ErrorMessage;
                 }
                 PwintyApiException exc = new PwintyApiException(errorMsg,response.StatusCode);
+                throw exc;
+            }
+            else
+            {
+                return response;
+            }
+        }
+        public static IRestResponse<T> ExecuteArrayWithErrorCheck<T>(this RestClient client, RestRequest request) where T : IList,new()
+        {
+            var response = client.Execute<T>(request);
+            if ((int)response.StatusCode > 399)
+            {
+                //try and get message
+                string errorMsg = "Not available";
+                if (response.Content != null)
+                {
+                    errorMsg = response.Content.ToString();
+                }
+                PwintyApiException exc = new PwintyApiException(errorMsg, response.StatusCode);
                 throw exc;
             }
             else

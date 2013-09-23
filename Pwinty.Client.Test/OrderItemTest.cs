@@ -32,6 +32,27 @@ namespace Pwinty.Client.Test
 
         }
         [TestMethod]
+        public void Adding_item_to_order_increases_cost()
+        {
+            PwintyApi api = new PwintyApi();
+            var order = base.CreateEmptyOrderWithValidAddress(api);
+            var originalPrice = order.cost;
+            using (var dummyImage = File.OpenRead("itemtest.jpg"))
+            {
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    OrderId = order.id,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Type = "4x6"
+                };
+                var result = api.OrderItems.CreateWithData(order.id, itemToAdd, dummyImage);
+                Assert.AreEqual(OrderItemStatus.Ok, result.Status);
+            }
+            var updatedOrder = api.Order.Get(order.id);
+            Assert.IsTrue(updatedOrder.cost > originalPrice);
+        }
+        [TestMethod]
         public void Add_item_with_neither_url_nor_data()
         {
             PwintyApi api = new PwintyApi();

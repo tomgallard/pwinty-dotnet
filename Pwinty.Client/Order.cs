@@ -23,7 +23,8 @@ namespace Pwinty.Client
     public enum QualityLevel
     {
         STANDARD,
-        PRO
+        PRO,
+        MadeUp
     }
     public enum Payment
     {
@@ -47,6 +48,7 @@ namespace Pwinty.Client
         public OrderStatus status { get; set; }
         public string trackingNumber { get; set; }
         public string trackingUrl { get; set; }
+        public int cost { get; set; }
         public Payment payment { get; set; }
         public string paymentUrl { get; set; }
         public QualityLevel qualityLevel { get; set; }

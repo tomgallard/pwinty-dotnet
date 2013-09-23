@@ -19,6 +19,7 @@ namespace Pwinty.Client.Test
                 qualityLevel = QualityLevel.PRO
             });
             Assert.IsTrue(result.id > 0);
+            Assert.IsTrue(result.cost > 0);
             Assert.AreEqual(Payment.InvoiceRecipient, result.payment);
             Assert.AreEqual(QualityLevel.PRO, result.qualityLevel);
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
@@ -224,6 +225,26 @@ namespace Pwinty.Client.Test
                     payment = Payment.InvoiceRecipient,
                     countryCode = "YY",
                     qualityLevel = QualityLevel.PRO
+                });
+                Assert.Fail("Should throw error if country code not supplied");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.IsNotNull(exc.Message);
+                Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
+            }
+        }
+        [TestMethod]
+        public void Cannot_Create_Order_With_MadeUp_QualityLevel()
+        {
+            try
+            {
+                PwintyApi api = new PwintyApi();
+                var result = api.Order.Create(new CreateOrderRequest()
+                {
+                    payment = Payment.InvoiceRecipient,
+                    countryCode = "GB",
+                    qualityLevel = QualityLevel.MadeUp
                 });
                 Assert.Fail("Should throw error if country code not supplied");
             }

@@ -68,8 +68,8 @@ namespace Pwinty.Client.Test
             //should charge vat
             var vatEl = seleniumInstance.FindElementByText("VAT");
             Assert.IsNotNull(vatEl);
-            var totalEl = seleniumInstance.FindElementByText("£4.79");
-            Assert.IsNotNull(totalEl,"Should have total cost of £4.79 on page");
+            var totalEl = seleniumInstance.FindElementByText("£5.04");
+            Assert.IsNotNull(totalEl,"Should have total cost of £5.04 on page");
             var continueButton = seleniumInstance.FindElementById("btnConfirmAndPay") as IWebElement;
             continueButton.ClickWithJavascript(seleniumInstance);
         }

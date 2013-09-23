@@ -14,6 +14,7 @@ namespace Pwinty.Client
     {
         private const string _orderPath = "/v2/Orders";
         private const string _getPath = "/v2/Orders/{orderId}";
+        private const string _getPhotosPath = "/v2/Orders/{orderId}/Photos";
         private const string _getAllPath = "/v2/Orders";
         public OrderResource()
         {
@@ -41,6 +42,17 @@ namespace Pwinty.Client
             };
             request.AddParameter("orderId", orderId.ToString(),ParameterType.UrlSegment);
             var response = Client.ExecuteWithErrorCheck<Order>(request);
+            return response.Data;
+        }
+        public List<OrderItem> GetPhotos(long orderId)
+        {
+            var request = new RestRequest
+            {
+                Resource = _getPhotosPath,
+                Method = Method.GET
+            };
+            request.AddParameter("orderId", orderId.ToString(), ParameterType.UrlSegment);
+            var response = Client.ExecuteWithErrorCheck<List<OrderItem>>(request);
             return response.Data;
         }
         public List<Order> Get()

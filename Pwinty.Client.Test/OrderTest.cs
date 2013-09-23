@@ -32,6 +32,15 @@ namespace Pwinty.Client.Test
             Assert.IsNotNull(orders);
         }
         [TestMethod]
+        public void Get_Order_Photos()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api);
+            Add_item_to_order(api, result.id);
+            var photos = api.Order.GetPhotos(result.id);
+            Assert.AreEqual(1, photos.Count);
+        }
+        [TestMethod]
         public void Create_International_Order()
         {
             PwintyApi api = new PwintyApi();

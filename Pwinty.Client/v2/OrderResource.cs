@@ -52,7 +52,7 @@ namespace Pwinty.Client
                 Method = Method.GET
             };
             request.AddParameter("orderId", orderId.ToString(), ParameterType.UrlSegment);
-            var response = Client.ExecuteWithErrorCheck<List<OrderItem>>(request);
+            var response = Client.ExecuteArrayWithErrorCheck<List<OrderItem>>(request);
             return response.Data;
         }
         public List<Order> Get()

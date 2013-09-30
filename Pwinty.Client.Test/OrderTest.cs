@@ -19,10 +19,13 @@ namespace Pwinty.Client.Test
                 qualityLevel = QualityLevel.PRO
             });
             Assert.IsTrue(result.id > 0);
-            Assert.IsTrue(result.cost > 0);
+            Assert.IsTrue(result.price > 0);
             Assert.AreEqual(Payment.InvoiceRecipient, result.payment);
             Assert.AreEqual(QualityLevel.PRO, result.qualityLevel);
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
+            Assert.IsNotNull(result.shippingInfo);
+            Assert.IsTrue(result.shippingInfo.Price > 0);
+            Assert.IsFalse(result.shippingInfo.isTracked);
         }
         [TestMethod]
         public void List_Orders()
@@ -165,7 +168,7 @@ namespace Pwinty.Client.Test
         {
             PwintyApi api = new PwintyApi();
             var result = CreateEmptyOrderWithValidAddress(api,Payment.InvoiceRecipient);
-            Add_item_to_order(api, result.id,2M);
+            Add_item_to_order(api, result.id,200);
             api.Order.SubmitForPayment(result.id);
             var paymentUrl = result.paymentUrl;
             Console.WriteLine("Payment url is " + paymentUrl);
@@ -219,7 +222,7 @@ namespace Pwinty.Client.Test
                 PwintyApi api = new PwintyApi();
                 var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
                 Assert.IsNotNull(result.paymentUrl, "Payment url should be available");
-                Add_item_to_order(api, result.id,2M);
+                Add_item_to_order(api, result.id,200);
                 api.Order.SubmitForPayment(result.id);
         }
         [TestMethod]

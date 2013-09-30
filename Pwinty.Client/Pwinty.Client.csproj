@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwintyApiException.cs" />
     <Compile Include="RestSharpExtensions.cs" />
+    <Compile Include="Shipping.cs" />
     <Compile Include="ShippingRate.cs" />
     <Compile Include="SubmissionReadinessReport.cs" />
     <Compile Include="v2\CatalogueResource.cs" />

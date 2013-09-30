@@ -52,11 +52,12 @@ namespace Pwinty.Client
         public OrderStatus status { get; set; }
         public string trackingNumber { get; set; }
         public string trackingUrl { get; set; }
-        public int cost { get; set; }
+        public int price { get; set; }
         public Payment payment { get; set; }
         public string paymentUrl { get; set; }
         public QualityLevel qualityLevel { get; set; }
         public List<OrderItem> photos { get; set; }
+        public Shipping shippingInfo { get; set; }
     }
     public class OrderRequest
     {
@@ -67,6 +68,7 @@ namespace Pwinty.Client
         public string addressTownOrCity { get; set; }
         public string recipientName { get; set; }
         public string stateOrCounty { get; set; }
+        
     }
     public class CreateOrderRequest :OrderRequest
     {
@@ -78,6 +80,7 @@ namespace Pwinty.Client
         public QualityLevel qualityLevel { get; set; }
         public string countryCode { get; set; }
         public string destinationCountryCode { get; set; }
+        public bool useTrackedShipping { get; set; }
     }
     public class UpdateOrderRequest : OrderRequest
     {

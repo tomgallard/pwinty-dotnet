@@ -19,7 +19,7 @@ namespace Pwinty.Client.Test
         {
             PwintyApi api = new PwintyApi();
             var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
-            Add_item_to_order(api, result.id, 2M);
+            Add_item_to_order(api, result.id, 200);
             api.Order.SubmitForPayment(result.id);
             var paymentUrl = result.paymentUrl;
             Console.WriteLine("Payment url is " + paymentUrl);
@@ -37,7 +37,7 @@ namespace Pwinty.Client.Test
         {
             PwintyApi api = new PwintyApi();
             var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
-            Add_item_to_order(api, result.id, 2M);
+            Add_item_to_order(api, result.id, 200);
             api.Order.SubmitForPayment(result.id);
             var paymentUrl = result.paymentUrl;
             Console.WriteLine("Payment url is " + paymentUrl);

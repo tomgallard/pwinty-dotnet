@@ -13,6 +13,10 @@ namespace Pwinty.Client
     {
         [Description("Not Yet Submitted")]
         NotYetSubmitted,
+        [Description("Awaiting Payment")]
+        AwaitingPayment,
+        [Description("Awaiting Payment")]
+        PaidAwaitingImageUpload,
         [Description("Submitted")]
         Submitted,
         [Description("Complete")]

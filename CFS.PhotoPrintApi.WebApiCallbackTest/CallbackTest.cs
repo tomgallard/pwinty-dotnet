@@ -11,11 +11,10 @@ namespace CFS.PhotoPrintApi.WebApiCallbackTest
         public void Receives_Callback_On_Create_Order()
         {
             PwintyApi api = new PwintyApi();
-           
             var result = api.Order.Create(new CreateOrderRequest()
             {
                 countryCode = "GB",
-                payment = Payment.InvoiceRecipient,
+                payment = Payment.InvoiceMe,
                 qualityLevel = QualityLevel.PRO
             });
            

@@ -14,7 +14,7 @@ namespace Pwinty.Client
         public int RecommendedHorizontalResolution { get; set; }
         public int RecommendedVerticalResolution { get; set; }
         public string Description { get; set; }
-        public decimal PriceGBP { get; set; }
-        public decimal PriceUSD { get; set; }
+        public int PriceGBP { get; set; }
+        public int PriceUSD { get; set; }
     }
 }

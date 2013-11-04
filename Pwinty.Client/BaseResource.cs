@@ -9,52 +9,33 @@ namespace Pwinty.Client
 {
     public abstract class BaseResource
     {
-        protected string PublicApiKey
-        {
-            get;
-            private set;
-        }
-        protected string MerchantId
-        {
-            get;
-            private set;
-        }
-        protected string BaseUrl
-        {
-            get;
-            private set;
-        }
+        
         protected RestClient Client
         {
             get
             {
                 var client = new RestClient
                 ();
-                client.BaseUrl = BaseUrl;
+                client.BaseUrl = Configuration.BaseUrl;
                 client.DefaultParameters.Add(
                     new Parameter()
                     {
                         Name = "X-Pwinty-MerchantId",
-                        Value = MerchantId,
+                        Value = Configuration.MerchantId,
                         Type = ParameterType.HttpHeader
                     });
                 client.DefaultParameters.Add(
                     new Parameter()
                     {
                         Name = "X-Pwinty-REST-API-Key",
-                        Value = PublicApiKey,
+                        Value = Configuration.RestApiKey,
                         Type = ParameterType.HttpHeader
                     });
                 return client;
             }
         }
     
-        public BaseResource(string merchantId,string publicApiKey,string baseUrl)
-        {
-            PublicApiKey = publicApiKey;
-            MerchantId = merchantId;
-            BaseUrl = baseUrl;
-        }
+        
 
        
     }

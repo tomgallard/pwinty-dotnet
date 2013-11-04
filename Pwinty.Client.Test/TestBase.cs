@@ -15,7 +15,7 @@ namespace Pwinty.Client.Test
             var url = new Uri(Configuration.BaseUrl);
             if (url.DnsSafeHost.Equals("api.pwinty.com"))
             {
-//                throw new Exception("Trying to run unit tests against live- aborting");
+                throw new Exception("Trying to run unit tests against live- aborting");
             }
             }
         }

@@ -17,3 +17,7 @@ Pwinty-dotnet picks up your API keys from the application configuration file:
   </appSettings>
 </configuration>
 ```
+
+Usage
+-----------
+See the Pwinty.Client.Test project for example usage

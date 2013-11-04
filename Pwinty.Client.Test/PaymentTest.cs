@@ -54,6 +54,7 @@ namespace Pwinty.Client.Test
         private void SubmitTestPayment(FirefoxDriver seleniumInstance,Order originalOrder, string paymentUrl)
         {
             seleniumInstance.Url = paymentUrl;
+            seleniumInstance.FindElementById("Email").SendKeys("tom@pwinty.com");
             Assert.AreEqual(originalOrder.recipientName, seleniumInstance.FindElementById("Name").GetAttribute("value"));
             Assert.AreEqual(originalOrder.address1, seleniumInstance.FindElementById("Address1").GetAttribute("value"));
             Assert.AreEqual(originalOrder.address2, seleniumInstance.FindElementById("Address2").GetAttribute("value"));

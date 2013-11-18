@@ -18,7 +18,11 @@ namespace Pwinty.Client
         [Description("Complete")]
         Complete,
         [Description("Cancelled")]
-        Cancelled
+        Cancelled,
+        [Description("Awaiting Payment")]
+        AwaitingPayment,
+        [Description("Paid Awaiting Image Upload")]
+        PaidAwaitingImageUpload
     }
     public enum QualityLevel
     {

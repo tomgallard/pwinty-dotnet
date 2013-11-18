@@ -27,8 +27,30 @@ namespace Pwinty.Client.Test
                 };
                 var result = api.OrderItems.CreateWithData(order.id, itemToAdd, dummyImage);
                 Assert.AreEqual(OrderItemStatus.Ok, result.Status);
+                Assert.AreNotEqual(0, result.Price);
             }
 
+        }
+        [TestMethod]
+        public void Adding_item_to_order_increases_cost()
+        {
+            PwintyApi api = new PwintyApi();
+            var order = base.CreateEmptyOrderWithValidAddress(api);
+            var originalPrice = order.price;
+            using (var dummyImage = File.OpenRead("itemtest.jpg"))
+            {
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    OrderId = order.id,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Type = "4x6"
+                };
+                var result = api.OrderItems.CreateWithData(order.id, itemToAdd, dummyImage);
+                Assert.AreEqual(OrderItemStatus.Ok, result.Status);
+            }
+            var updatedOrder = api.Order.Get(order.id);
+            Assert.IsTrue(updatedOrder.price > originalPrice);
         }
         [TestMethod]
         public void Add_item_with_neither_url_nor_data()
@@ -127,7 +149,7 @@ namespace Pwinty.Client.Test
             OrderItemRequest itemToAdd = new OrderItemRequest()
             {
                 Copies = 1,
-                Price = 2.7M,
+                PriceToUser = 270,
                 Sizing = SizingOption.ShrinkToExactFit,
                 Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
                 Type = "4x6"
@@ -138,7 +160,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(itemToAdd.Sizing, result.Sizing);
             Assert.AreEqual(itemToAdd.Url, result.Url);
             Assert.AreEqual(itemToAdd.Type, result.Type);
-            Assert.AreEqual(itemToAdd.Price, result.Price);
+            Assert.AreEqual(itemToAdd.PriceToUser, result.PriceToUser);
         }
         [TestMethod]
         public void Add_item_to_order_with_url()

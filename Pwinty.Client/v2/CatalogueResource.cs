@@ -8,7 +8,7 @@ namespace Pwinty.Client
 {
     public class CatalogueResource :BaseResource
     {
-        private const string _cataloguePath = "/v2/Catalogue";
+        private const string _cataloguePath = "/v2/Catalogue/{countryCode}/{qualityLevel}";
         public Catalogue Get(string countryCode, QualityLevel qualityLevel)
         {
             var request = new RestRequest
@@ -16,8 +16,8 @@ namespace Pwinty.Client
                 Resource = _cataloguePath,
                 Method = Method.GET
             };
-            request.AddParameter("countryCode", countryCode);
-            request.AddParameter("qualityLevel", qualityLevel.ToString());
+            request.AddParameter("countryCode", countryCode,ParameterType.UrlSegment);
+            request.AddParameter("qualityLevel", qualityLevel.ToString(),ParameterType.UrlSegment);
             var response = Client.ExecuteWithErrorCheck<Catalogue>(request);
             return response.Data;
         }

@@ -37,7 +37,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(result.countryCode, countryCode);
             return result;
         }
-        protected void Add_item_to_order(PwintyApi api,long orderId,decimal? price = null)
+        protected void Add_item_to_order(PwintyApi api,long orderId,int? price = null)
         {
             using (var dummyImage = File.OpenRead("itemtest.jpg"))
             {
@@ -46,7 +46,7 @@ namespace Pwinty.Client.Test
                     Copies = 1,
                     Sizing = SizingOption.ShrinkToExactFit,
                     Type = "4x6",
-                    Price = price
+                    PriceToUser = price
                 };
                 var result = api.OrderItems.CreateWithData(orderId, itemToAdd, dummyImage);
                 Assert.AreEqual(OrderItemStatus.Ok, result.Status);

@@ -19,9 +19,13 @@ namespace Pwinty.Client.Test
                 qualityLevel = QualityLevel.PRO
             });
             Assert.IsTrue(result.id > 0);
+            Assert.IsTrue(result.price > 0);
             Assert.AreEqual(Payment.InvoiceRecipient, result.payment);
             Assert.AreEqual(QualityLevel.PRO, result.qualityLevel);
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
+            Assert.IsNotNull(result.shippingInfo);
+            Assert.IsTrue(result.shippingInfo.Price > 0);
+            Assert.IsFalse(result.shippingInfo.isTracked);
         }
         [TestMethod]
         public void List_Orders()
@@ -29,6 +33,15 @@ namespace Pwinty.Client.Test
             PwintyApi api = new PwintyApi();
             var orders = api.Order.Get();
             Assert.IsNotNull(orders);
+        }
+        [TestMethod]
+        public void Get_Order_Photos()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrderWithValidAddress(api);
+            Add_item_to_order(api, result.id);
+            var photos = api.Order.GetPhotos(result.id);
+            Assert.AreEqual(1, photos.Count);
         }
         [TestMethod]
         public void Create_International_Order()
@@ -155,7 +168,7 @@ namespace Pwinty.Client.Test
         {
             PwintyApi api = new PwintyApi();
             var result = CreateEmptyOrderWithValidAddress(api,Payment.InvoiceRecipient);
-            Add_item_to_order(api, result.id,2M);
+            Add_item_to_order(api, result.id,200);
             api.Order.SubmitForPayment(result.id);
             var paymentUrl = result.paymentUrl;
             Console.WriteLine("Payment url is " + paymentUrl);
@@ -209,7 +222,7 @@ namespace Pwinty.Client.Test
                 PwintyApi api = new PwintyApi();
                 var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
                 Assert.IsNotNull(result.paymentUrl, "Payment url should be available");
-                Add_item_to_order(api, result.id,2M);
+                Add_item_to_order(api, result.id,200);
                 api.Order.SubmitForPayment(result.id);
         }
         [TestMethod]
@@ -231,6 +244,26 @@ namespace Pwinty.Client.Test
                     payment = Payment.InvoiceRecipient,
                     countryCode = "YY",
                     qualityLevel = QualityLevel.PRO
+                });
+                Assert.Fail("Should throw error if country code not supplied");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.IsNotNull(exc.Message);
+                Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
+            }
+        }
+        [TestMethod]
+        public void Cannot_Create_Order_With_MadeUp_QualityLevel()
+        {
+            try
+            {
+                PwintyApi api = new PwintyApi();
+                var result = api.Order.Create(new CreateOrderRequest()
+                {
+                    payment = Payment.InvoiceRecipient,
+                    countryCode = "GB",
+                    qualityLevel = QualityLevel.MadeUp
                 });
                 Assert.Fail("Should throw error if country code not supplied");
             }

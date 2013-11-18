@@ -30,7 +30,8 @@ namespace Pwinty.Client
         public string Url { get; set; }
         public int Copies { get; set; }
         public SizingOption Sizing { get; set; }
-        public decimal? Price { get; set; }
+        public long OrderId { get; set; }
+        public int? PriceToUser { get; set; }
         public string Md5Hash { get; set; }
     }
     public class OrderItem :BaseItem
@@ -42,7 +43,8 @@ namespace Pwinty.Client
         public int Copies { get; set; }
         public SizingOption Sizing { get; set; }
         public long OrderId { get; set; }
-        public decimal? Price { get; set; }
+        public int? PriceToUser { get; set; }
+        public int Price { get; set; }
         public string Md5Hash { get; set; }
     }
 }

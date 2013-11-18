@@ -19,7 +19,7 @@ namespace Pwinty.Client.Test
         {
             PwintyApi api = new PwintyApi();
             var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
-            Add_item_to_order(api, result.id, 2M);
+            Add_item_to_order(api, result.id, 200);
             api.Order.SubmitForPayment(result.id);
             var paymentUrl = result.paymentUrl;
             Console.WriteLine("Payment url is " + paymentUrl);
@@ -37,7 +37,7 @@ namespace Pwinty.Client.Test
         {
             PwintyApi api = new PwintyApi();
             var result = CreateEmptyOrderWithValidAddress(api, Payment.InvoiceRecipient);
-            Add_item_to_order(api, result.id, 2M);
+            Add_item_to_order(api, result.id, 200);
             api.Order.SubmitForPayment(result.id);
             var paymentUrl = result.paymentUrl;
             Console.WriteLine("Payment url is " + paymentUrl);
@@ -54,6 +54,7 @@ namespace Pwinty.Client.Test
         private void SubmitTestPayment(FirefoxDriver seleniumInstance,Order originalOrder, string paymentUrl)
         {
             seleniumInstance.Url = paymentUrl;
+            seleniumInstance.FindElementById("Email").SendKeys("tom@pwinty.com");
             Assert.AreEqual(originalOrder.recipientName, seleniumInstance.FindElementById("Name").GetAttribute("value"));
             Assert.AreEqual(originalOrder.address1, seleniumInstance.FindElementById("Address1").GetAttribute("value"));
             Assert.AreEqual(originalOrder.address2, seleniumInstance.FindElementById("Address2").GetAttribute("value"));
@@ -68,8 +69,8 @@ namespace Pwinty.Client.Test
             //should charge vat
             var vatEl = seleniumInstance.FindElementByText("VAT");
             Assert.IsNotNull(vatEl);
-            var totalEl = seleniumInstance.FindElementByText("£4.79");
-            Assert.IsNotNull(totalEl,"Should have total cost of £4.79 on page");
+            var totalEl = seleniumInstance.FindElementByText("£5.04");
+            Assert.IsNotNull(totalEl,"Should have total cost of £5.04 on page");
             var continueButton = seleniumInstance.FindElementById("btnConfirmAndPay") as IWebElement;
             continueButton.ClickWithJavascript(seleniumInstance);
         }

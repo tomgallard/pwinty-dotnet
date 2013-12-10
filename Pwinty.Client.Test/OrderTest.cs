@@ -28,6 +28,35 @@ namespace Pwinty.Client.Test
             Assert.IsFalse(result.shippingInfo.isTracked);
         }
         [TestMethod]
+        public void Create_CanvasOrder_And_Retreive()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = api.Order.Create(new CreateOrderRequest()
+            {
+                countryCode = "GB",
+                payment = Payment.InvoiceRecipient,
+                qualityLevel = QualityLevel.PRO
+            });
+             OrderItemRequest itemToAdd = new OrderItemRequest()
+            {
+                Copies = 1,
+                PriceToUser = 270,
+                Sizing = SizingOption.ShrinkToExactFit,
+                Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
+                Type = "C10x12"
+            };
+            var newItem =   api.OrderItems.Create(result.id, itemToAdd);
+            var updatedOrder = api.Order.Get(result.id);
+            Assert.IsTrue(updatedOrder.id > 0);
+            Assert.IsTrue(updatedOrder.price > 0);
+            Assert.AreEqual(Payment.InvoiceRecipient, updatedOrder.payment);
+            Assert.AreEqual(QualityLevel.PRO, updatedOrder.qualityLevel);
+            Assert.AreEqual(OrderStatus.NotYetSubmitted, updatedOrder.status);
+            Assert.IsNotNull(updatedOrder.shippingInfo);
+            Assert.IsTrue(updatedOrder.shippingInfo.Price > 0);
+            Assert.IsTrue(updatedOrder.shippingInfo.isTracked);
+        }
+        [TestMethod]
         public void List_Orders()
         {
             PwintyApi api = new PwintyApi();

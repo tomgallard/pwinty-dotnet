@@ -9,23 +9,30 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFS.PhotoPrintApi.WebApiCal
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CIBuild|Any CPU = CIBuild|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 		Sandbox|Any CPU = Sandbox|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D91040B5-C09A-48FA-A36A-B452AA937646}.CIBuild|Any CPU.ActiveCfg = CIBuild|Any CPU
+		{D91040B5-C09A-48FA-A36A-B452AA937646}.CIBuild|Any CPU.Build.0 = CIBuild|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Sandbox|Any CPU.ActiveCfg = Sandbox|Any CPU
 		{D91040B5-C09A-48FA-A36A-B452AA937646}.Sandbox|Any CPU.Build.0 = Sandbox|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.CIBuild|Any CPU.ActiveCfg = CIBuild|Any CPU
+		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.CIBuild|Any CPU.Build.0 = CIBuild|Any CPU
 		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Sandbox|Any CPU.ActiveCfg = Release|Any CPU
 		{20B96B7A-EE5C-4954-9241-BBC492B4C27F}.Sandbox|Any CPU.Build.0 = Release|Any CPU
+		{23C3C078-181B-4ABF-997F-79264ED859C8}.CIBuild|Any CPU.ActiveCfg = CIBuild|Any CPU
+		{23C3C078-181B-4ABF-997F-79264ED859C8}.CIBuild|Any CPU.Build.0 = CIBuild|Any CPU
 		{23C3C078-181B-4ABF-997F-79264ED859C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{23C3C078-181B-4ABF-997F-79264ED859C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23C3C078-181B-4ABF-997F-79264ED859C8}.Release|Any CPU.ActiveCfg = Release|Any CPU

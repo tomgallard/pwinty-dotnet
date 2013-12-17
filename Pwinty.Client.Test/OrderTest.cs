@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace Pwinty.Client.Test
 {
-    [TestClass]
+    [TestFixture]
     public class OrderTest :TestBase
     {
-        [TestMethod]
+        [Test]
         public void Create_Order()
         {
             PwintyApi api = new PwintyApi();
@@ -27,14 +27,14 @@ namespace Pwinty.Client.Test
             Assert.IsTrue(result.shippingInfo.Price > 0);
             Assert.IsFalse(result.shippingInfo.isTracked);
         }
-        [TestMethod]
+        [Test]
         public void List_Orders()
         {
             PwintyApi api = new PwintyApi();
             var orders = api.Order.Get();
             Assert.IsNotNull(orders);
         }
-        [TestMethod]
+        [Test]
         public void Get_Order_Photos()
         {
             PwintyApi api = new PwintyApi();
@@ -43,7 +43,7 @@ namespace Pwinty.Client.Test
             var photos = api.Order.GetPhotos(result.id);
             Assert.AreEqual(1, photos.Count);
         }
-        [TestMethod]
+        [Test]
         public void Create_International_Order()
         {
             PwintyApi api = new PwintyApi();
@@ -59,7 +59,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(QualityLevel.PRO, result.qualityLevel);
             Assert.AreEqual(OrderStatus.NotYetSubmitted, result.status);
         }
-        [TestMethod]
+        [Test]
         public void Cancel_order()
         {
             PwintyApi api = new PwintyApi();
@@ -73,7 +73,7 @@ namespace Pwinty.Client.Test
             var order = api.Order.Get(result.id);
             Assert.AreEqual(OrderStatus.Cancelled, order.status);
         }
-        [TestMethod]
+        [Test]
         public void Check_order_submission_status()
         {
             PwintyApi api = new PwintyApi();
@@ -82,7 +82,7 @@ namespace Pwinty.Client.Test
             var status = api.Order.CheckReadyForSubmit(result.id);
             Assert.IsTrue(status.isValid, "Order should be valid for submit");
         }
-        [TestMethod]
+        [Test]
         public void Check_order_submission_status_when_errors()
         {
             PwintyApi api = new PwintyApi();
@@ -91,7 +91,7 @@ namespace Pwinty.Client.Test
             Assert.IsFalse(status.isValid, "Order should not be valid for submit with no items");
             Assert.IsTrue(status.generalErrors.Count > 0, "Order should have general errors");
         }
-        [TestMethod]
+        [Test]
         public void Update_order_address()
         {
             PwintyApi api = new PwintyApi();
@@ -115,7 +115,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(updateRequest.stateOrCounty,updatedOrder.stateOrCounty);
         }
         
-        [TestMethod]
+        [Test]
         public void Cancel_Submitted_Order_Causes_Error()
         {
             PwintyApi api = new PwintyApi();
@@ -133,7 +133,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.Forbidden, exc.StatusCode, "Should return status code forbidden");
             }
         }
-        [TestMethod]
+        [Test]
         public void Cancel_Order_Using_Delete_Endpoint()
         {
             PwintyApi api = new PwintyApi();
@@ -147,7 +147,7 @@ namespace Pwinty.Client.Test
             var order = api.Order.Get(result.id);
             Assert.AreEqual(OrderStatus.Cancelled, order.status);
         }
-        [TestMethod]
+        [Test]
         public void Submit_Order_Without_Items()
         {
             try
@@ -163,7 +163,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.Forbidden, exc.StatusCode);
             }
         }
-        [TestMethod]
+        [Test]
         public void Submit_Order_And_Retrieve_Payment_Url()
         {
             PwintyApi api = new PwintyApi();
@@ -180,7 +180,7 @@ namespace Pwinty.Client.Test
         }
      
         
-        [TestMethod]
+        [Test]
         public void Cannot_Create_Order_Without_CountryCode()
         {
             try
@@ -199,7 +199,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.BadRequest,exc.StatusCode);
             }
         }
-        [TestMethod]
+        [Test]
         public void Cant_submit_order_with_invoice_recipient()
         {
             try
@@ -215,7 +215,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode, "Should return bad request");
             }
         }
-        [TestMethod]
+        [Test]
         public void Invoice_recipient_order_returns_payment_url()
         {
 
@@ -225,7 +225,7 @@ namespace Pwinty.Client.Test
                 Add_item_to_order(api, result.id,200);
                 api.Order.SubmitForPayment(result.id);
         }
-        [TestMethod]
+        [Test]
         public void Can_submit_order_with_invoice_me()
         {
             PwintyApi api = new PwintyApi();
@@ -233,7 +233,7 @@ namespace Pwinty.Client.Test
             Add_item_to_order(api, result.id);
             api.Order.Submit(result.id);
         }
-        [TestMethod]
+        [Test]
         public void Cannot_Create_Order_With_MadeUp_CountryCode()
         {
             try
@@ -253,7 +253,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
             }
         }
-        [TestMethod]
+        [Test]
         public void Cannot_Create_Order_With_MadeUp_QualityLevel()
         {
             try
@@ -273,7 +273,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
             }
         }
-        [TestMethod]
+        [Test]
         public void Create_Order_Without_Country_Throws_Exception()
         {
             try

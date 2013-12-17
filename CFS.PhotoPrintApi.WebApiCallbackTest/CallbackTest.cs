@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Pwinty.Client;
 
 namespace CFS.PhotoPrintApi.WebApiCallbackTest
 {
-    [TestClass]
+    [TestFixture]
     public class CallbackTest :TestBase
     {
-        [TestMethod]
+        [Test]
         public void Receives_Callback_On_Create_Order()
         {
             PwintyApi api = new PwintyApi();

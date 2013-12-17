@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Pwinty.Client.Test
 {
-    [TestClass]
+    [TestFixture]
     public class CatalogueTests :TestBase
     {
-        [TestMethod]
+        [Test]
         public void Get_catalogue_pro()
         {
             PwintyApi api = new PwintyApi();
@@ -19,7 +19,7 @@ namespace Pwinty.Client.Test
             Assert.IsTrue(cat.ShippingRates.Count > 0, "Should containg shipping rates");
             Assert.IsTrue(cat.Items.Count > 0, "Should containg items");
         }
-        [TestMethod]
+        [Test]
         public void Get_catalogue_standard()
         {
             PwintyApi api = new PwintyApi();

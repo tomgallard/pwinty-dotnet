@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System;
@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Pwinty.Client.Test
 {
-    [TestClass]
+    [TestFixture]
     public class PaymentTest :TestBase
     {
-        [TestMethod]
-        [TestCategory("Payment tests")]
+        [Test]
+        [Category("Payment tests")]
         public void Submit_Order_And_Retrieve_Payment_Url()
         {
             PwintyApi api = new PwintyApi();
@@ -31,8 +31,8 @@ namespace Pwinty.Client.Test
                 AssertPaymentSuccess(seleniumInstance);
             }
         }
-        [TestMethod]
-        [TestCategory("Payment tests")]
+        [Test]
+        [Category("Payment tests")]
         public void Submit_Order_With_Card_Declined_Card()
         {
             PwintyApi api = new PwintyApi();

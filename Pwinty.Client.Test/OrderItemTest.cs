@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Pwinty.Client.Test
 {
-    [TestClass]
+    [TestFixture]
     public class OrderItemTest :TestBase
     {
-        [TestMethod]
+        [Test]
         public void Add_item_to_order()
         {
             PwintyApi api = new PwintyApi();
@@ -32,7 +32,7 @@ namespace Pwinty.Client.Test
             }
 
         }
-        [TestMethod]
+        [Test]
         public void Adding_item_to_order_increases_cost()
         {
             PwintyApi api = new PwintyApi();
@@ -53,7 +53,7 @@ namespace Pwinty.Client.Test
             var updatedOrder = api.Order.Get(order.id);
             Assert.IsTrue(updatedOrder.price > originalPrice);
         }
-        [TestMethod]
+        [Test]
         public void Add_item_with_neither_url_nor_data()
         {
             PwintyApi api = new PwintyApi();
@@ -70,7 +70,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(OrderItemStatus.AwaitingUrlOrData, result.Status);
 
         }
-        [TestMethod]
+        [Test]
         public void Add_item_with_invalid_url()
         {
             try
@@ -95,7 +95,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
             }
         }
-        [TestMethod]
+        [Test]
         public void Add_item_with_invalid_name()
         {
             try
@@ -120,7 +120,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
             }
         }
-        [TestMethod]
+        [Test]
         public void Add_valid_item_unsupported_country()
         {
             try
@@ -145,7 +145,7 @@ namespace Pwinty.Client.Test
                 Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
             }
         }
-        [TestMethod]
+        [Test]
         public void Get_item_by_id()
         {
             PwintyApi api = new PwintyApi();
@@ -168,7 +168,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(itemToAdd.Type, result.Type);
             Assert.AreEqual(itemToAdd.PriceToUser, result.PriceToUser);
         }
-        [TestMethod]
+        [Test]
         public void Add_item_to_order_with_url()
         {
             PwintyApi api = new PwintyApi();
@@ -186,7 +186,7 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(OrderItemStatus.NotYetDownloaded, result.Status);
 
         }
-        [TestMethod]
+        [Test]
         public void Delete_item_from_order()
         {
             PwintyApi api = new PwintyApi();
@@ -206,7 +206,7 @@ namespace Pwinty.Client.Test
             order = api.Order.Get(order.id);
             Assert.AreEqual(0, order.photos.Count, "Should be no photos left in order");
         }
-        [TestMethod]
+        [Test]
         public void Cant_delete_item_from_submitted_order()
         {
             PwintyApi api = new PwintyApi();
@@ -235,7 +235,7 @@ namespace Pwinty.Client.Test
             order = api.Order.Get(order.id);
             Assert.AreEqual(1, order.photos.Count, "Should still be one photo in order");
         }
-        [TestMethod]
+        [Test]
         public void Add_item_to_order_with_md5Hash()
         {
 
@@ -257,7 +257,7 @@ namespace Pwinty.Client.Test
                 }
 
         }
-        [TestMethod]
+        [Test]
         public void Add_item_to_order_with_invalid_md5Hash_causes_error()
         {
             try

@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System.IO;
 
 namespace Pwinty.Client.Test
 {
-    [TestClass]
+    [TestFixture]
     public class TestBase
     {
-        [TestInitialize]
+        [SetUp]
         public void Check_Not_On_Live()
         {
             if(!String.IsNullOrEmpty(Configuration.BaseUrl))

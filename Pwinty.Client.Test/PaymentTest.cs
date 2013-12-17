@@ -77,7 +77,7 @@ namespace Pwinty.Client.Test
 
         private void EnterDummyPaymentOptions(FirefoxDriver seleniumInstance,StripeCardDetails cardDetails)
         {
-            seleniumInstance.SwitchTo().Frame(seleniumInstance.FindElementByCssSelector(".stripe-app"));
+            seleniumInstance.SwitchTo().Frame(seleniumInstance.FindElementByCssSelector(".stripe_checkout_app"));
             var cardEl = seleniumInstance.FindElementById("paymentNumber");
             cardEl.SendKeys(cardDetails.CardNumber);
             var expiresEl = seleniumInstance.FindElementById("paymentExpiry");

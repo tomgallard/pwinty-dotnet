@@ -22,7 +22,6 @@ namespace Pwinty.Client.Test
                 OrderItemRequest itemToAdd = new OrderItemRequest()
                 {
                     Copies = 1,
-                    OrderId = order.id,
                     Sizing = SizingOption.ShrinkToExactFit,
                     Type = "4x6"
                 };
@@ -62,7 +61,6 @@ namespace Pwinty.Client.Test
             OrderItemRequest itemToAdd = new OrderItemRequest()
             {
                 Copies = 1,
-                OrderId = order.id,
                 Sizing = SizingOption.ShrinkToExactFit,
                 Type = "4x6"
             };
@@ -81,7 +79,6 @@ namespace Pwinty.Client.Test
                 OrderItemRequest itemToAdd = new OrderItemRequest()
                 {
                     Copies = 1,
-                    OrderId = order.id,
                     Sizing = SizingOption.ShrinkToExactFit,
                     Url = "ftp://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
                     Type = "4x6"
@@ -106,7 +103,6 @@ namespace Pwinty.Client.Test
                 OrderItemRequest itemToAdd = new OrderItemRequest()
                 {
                     Copies = 1,
-                    OrderId = order.id,
                     Sizing = SizingOption.ShrinkToExactFit,
                     Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
                     Type = "4x61"
@@ -131,7 +127,6 @@ namespace Pwinty.Client.Test
                 OrderItemRequest itemToAdd = new OrderItemRequest()
                 {
                     Copies = 1,
-                    OrderId = order.id,
                     Sizing = SizingOption.ShrinkToExactFit,
                     Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
                     Type = "4x6"
@@ -154,7 +149,6 @@ namespace Pwinty.Client.Test
             OrderItemRequest itemToAdd = new OrderItemRequest()
             {
                 Copies = 1,
-                OrderId = order.id,
                 PriceToUser = 270,
                 Sizing = SizingOption.ShrinkToExactFit,
                 Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
@@ -177,7 +171,6 @@ namespace Pwinty.Client.Test
             OrderItemRequest itemToAdd = new OrderItemRequest()
             {
                 Copies = 1,
-                OrderId = order.id,
                 Sizing = SizingOption.ShrinkToExactFit,
                 Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
                 Type = "4x6"
@@ -195,7 +188,6 @@ namespace Pwinty.Client.Test
             OrderItemRequest itemToAdd = new OrderItemRequest()
             {
                 Copies = 1,
-                OrderId = order.id,
                 Sizing = SizingOption.ShrinkToExactFit,
                 Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
                 Type = "4x6"
@@ -215,7 +207,6 @@ namespace Pwinty.Client.Test
             OrderItemRequest itemToAdd = new OrderItemRequest()
             {
                 Copies = 1,
-                OrderId = order.id,
                 Sizing = SizingOption.ShrinkToExactFit,
                 Url = "http://farm8.staticflickr.com/7046/6904409825_fd4b1482fe_b.jpg",
                 Type = "4x6"
@@ -247,7 +238,6 @@ namespace Pwinty.Client.Test
                     OrderItemRequest itemToAdd = new OrderItemRequest()
                     {
                         Copies = 1,
-                        OrderId = order.id,
                         Sizing = SizingOption.ShrinkToExactFit,
                         Md5Hash = fileHash,
                         Type = "4x6"
@@ -273,7 +263,6 @@ namespace Pwinty.Client.Test
                         OrderItemRequest itemToAdd = new OrderItemRequest()
                         {
                             Copies = 1,
-                            OrderId = order.id,
                             Sizing = SizingOption.ShrinkToExactFit,
                             Md5Hash = incorrectFileHash,
                             Type = "4x6"

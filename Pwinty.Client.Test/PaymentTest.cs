@@ -77,17 +77,19 @@ namespace Pwinty.Client.Test
 
         private void EnterDummyPaymentOptions(FirefoxDriver seleniumInstance,StripeCardDetails cardDetails)
         {
-            seleniumInstance.SwitchTo().Frame(seleniumInstance.FindElementByCssSelector(".stripe-app"));
-            var cardEl = seleniumInstance.FindElementById("paymentNumber");
+            seleniumInstance.SwitchTo().Frame(seleniumInstance.FindElementByCssSelector(".stripe_checkout_app"));
+            var emailEl = seleniumInstance.FindElementByName("email");
+            emailEl.SendKeys("tom@pwinty.com");
+            var cardEl = seleniumInstance.FindElementByName("card_number");
             cardEl.SendKeys(cardDetails.CardNumber);
-            var expiresEl = seleniumInstance.FindElementById("paymentExpiry");
+            var expiresEl = seleniumInstance.FindElementByName("cc-exp");
             expiresEl.SendKeys(cardDetails.Expiry);
-            var nameOnCard = seleniumInstance.FindElementById("paymentName");
-            nameOnCard.SendKeys(cardDetails.CardHolderName);
-            var cvc = seleniumInstance.FindElementById("paymentCVC");
+            //var nameOnCard = seleniumInstance.FindElementById("paymentName");
+            //nameOnCard.SendKeys(cardDetails.CardHolderName);
+            var cvc = seleniumInstance.FindElementByName("cc-csc");
             cvc.SendKeys(cardDetails.CVC);
 
-            var submitButton = seleniumInstance.FindElementByCssSelector(".blue.submit");
+            var submitButton = seleniumInstance.FindElementByCssSelector(".button button");
             submitButton.ClickWithJavascript(seleniumInstance);
             
 
@@ -102,7 +104,7 @@ namespace Pwinty.Client.Test
         private static void AssertPaymentFailed(FirefoxDriver seleniumInstance)
         {
             //should move to a thanks page
-            var thanksElement = seleniumInstance.FindElementByText("Sorry there was an error taking your payment");
+            var thanksElement = seleniumInstance.FindElementByText("This card was declined");
             Assert.IsNotNull(thanksElement);
         }
     }

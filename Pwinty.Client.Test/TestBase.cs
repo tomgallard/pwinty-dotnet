@@ -44,7 +44,6 @@ namespace Pwinty.Client.Test
                 OrderItemRequest itemToAdd = new OrderItemRequest()
                 {
                     Copies = 1,
-                    OrderId = orderId,
                     Sizing = SizingOption.ShrinkToExactFit,
                     Type = "4x6",
                     PriceToUser = price

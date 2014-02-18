@@ -37,6 +37,18 @@ namespace Pwinty.Client.Test
             Assert.AreEqual(result.countryCode, countryCode);
             return result;
         }
+        protected Order CreateEmptyOrder(PwintyApi api, Payment paymentOption = Payment.InvoiceMe, string countryCode = "GB")
+        {
+            var result = api.Order.Create(new CreateOrderRequest()
+            {
+                countryCode = countryCode,
+                payment = paymentOption,
+                qualityLevel = QualityLevel.PRO
+            });
+            Assert.IsTrue(result.id > 0);
+            Assert.AreEqual(result.countryCode, countryCode);
+            return result;
+        }
         protected void Add_item_to_order(PwintyApi api,long orderId,int? price = null)
         {
             using (var dummyImage = File.OpenRead("itemtest.jpg"))

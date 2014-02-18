@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -19,6 +20,7 @@ namespace Pwinty.Client.Test
             var order = base.CreateEmptyOrderWithValidAddress(api);
             using (var dummyImage = File.OpenRead("itemtest.jpg"))
             {
+
                 OrderItemRequest itemToAdd = new OrderItemRequest()
                 {
                     Copies = 1,
@@ -62,11 +64,81 @@ namespace Pwinty.Client.Test
             {
                 Copies = 1,
                 Sizing = SizingOption.ShrinkToExactFit,
-                Type = "4x6"
+                Type = "4x6",
+                Attributes = new Dictionary<string,string>()
             };
+            itemToAdd.Attributes["frame_colour"] = "silver";
             var result = api.OrderItems.Create(order.id, itemToAdd);
             Assert.AreEqual(OrderItemStatus.AwaitingUrlOrData, result.Status);
 
+        }
+        [Test]
+        public void Add_item_with_invalid_attribute_causes_bad_request()
+        {
+            try
+            {
+                PwintyApi api = new PwintyApi();
+                var order = base.CreateEmptyOrderWithValidAddress(api);
+
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Type = "4x6",
+                    Attributes = new Dictionary<string, string>()
+                };
+                itemToAdd.Attributes["frame_colour"] = "silver";
+                var result = api.OrderItems.Create(order.id, itemToAdd);
+                Assert.Fail("Should not successfuly complete request with invalid attribute");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.IsNotNull(exc.Message);
+                Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
+            }
+        }
+        [Test]
+        public void Can_add_framed_item_with_frame_colour()
+        {
+                PwintyApi api = new PwintyApi();
+                var order = base.CreateEmptyOrderWithValidAddress(api);
+
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Type = "F12x16_8x10",
+                    Attributes = new Dictionary<string, string>()
+                };
+                itemToAdd.Attributes["frame_colour"] = "silver";
+                var result = api.OrderItems.Create(order.id, itemToAdd);
+                Assert.AreEqual(OrderItemStatus.AwaitingUrlOrData, result.Status);
+                Assert.AreEqual(result.Attributes["frame_colour"], "silver");
+        }
+        [Test]
+        public void Cant_add_framed_item_with_invalidframe_colour()
+        {
+            try
+            {
+                PwintyApi api = new PwintyApi();
+                var order = base.CreateEmptyOrderWithValidAddress(api);
+
+                OrderItemRequest itemToAdd = new OrderItemRequest()
+                {
+                    Copies = 1,
+                    Sizing = SizingOption.ShrinkToExactFit,
+                    Type = "F12x16_8x10",
+                    Attributes = new Dictionary<string, string>()
+                };
+                itemToAdd.Attributes["frame_colour"] = "blargh";
+                var result = api.OrderItems.Create(order.id, itemToAdd);
+                Assert.Fail("Should not accept invalid frame colour");
+            }
+            catch (PwintyApiException exc)
+            {
+                Assert.IsNotNull(exc.Message);
+                Assert.AreEqual(HttpStatusCode.BadRequest, exc.StatusCode);
+            }
         }
         [Test]
         public void Add_item_with_invalid_url()

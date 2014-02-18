@@ -1,6 +1,7 @@
 
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 
@@ -26,6 +27,10 @@ namespace Pwinty.Client
 
     public class OrderItemRequest
     {
+        public OrderItemRequest()
+        {
+            Attributes = new Dictionary<string, string>();
+        }
         public long Id { get; set; }
         public string Type { get; set; }
         public string Url { get; set; }
@@ -34,6 +39,7 @@ namespace Pwinty.Client
         public long OrderId { get; set; }
         public int? PriceToUser { get; set; }
         public string Md5Hash { get; set; }
+        public Dictionary<string, string> Attributes { get; set; }
     }
     public class OrderItem :BaseItem
     {
@@ -47,5 +53,6 @@ namespace Pwinty.Client
         public int? PriceToUser { get; set; }
         public int Price { get; set; }
         public string Md5Hash { get; set; }
+        public Dictionary<string,string> Attributes { get; set; }
     }
 }

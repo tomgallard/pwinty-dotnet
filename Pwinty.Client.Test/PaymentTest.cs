@@ -33,6 +33,24 @@ namespace Pwinty.Client.Test
         }
         [Test]
         [Category("Payment tests")]
+        public void Submit_Order_With_No_AddressAnd_Retrieve_Payment_Url()
+        {
+            PwintyApi api = new PwintyApi();
+            var result = CreateEmptyOrder(api, Payment.InvoiceRecipient);
+            Add_item_to_order(api, result.id, 200);
+            api.Order.SubmitForPayment(result.id);
+            var paymentUrl = result.paymentUrl;
+            Console.WriteLine("Payment url is " + paymentUrl);
+            using (var seleniumInstance = new FirefoxDriver())
+            {
+                SubmitTestPayment(seleniumInstance, result, paymentUrl);
+                CheckOrderSummary(seleniumInstance);
+                EnterDummyPaymentOptions(seleniumInstance, StripeCardDetails.VALID_VISA);
+                AssertPaymentSuccess(seleniumInstance);
+            }
+        }
+        [Test]
+        [Category("Payment tests")]
         public void Submit_Order_With_Card_Declined_Card()
         {
             PwintyApi api = new PwintyApi();

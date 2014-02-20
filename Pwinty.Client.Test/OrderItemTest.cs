@@ -67,7 +67,6 @@ namespace Pwinty.Client.Test
                 Type = "4x6",
                 Attributes = new Dictionary<string,string>()
             };
-            itemToAdd.Attributes["frame_colour"] = "silver";
             var result = api.OrderItems.Create(order.id, itemToAdd);
             Assert.AreEqual(OrderItemStatus.AwaitingUrlOrData, result.Status);
 

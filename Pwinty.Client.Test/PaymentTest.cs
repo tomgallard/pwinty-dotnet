@@ -43,7 +43,7 @@ namespace Pwinty.Client.Test
             Console.WriteLine("Payment url is " + paymentUrl);
             using (var seleniumInstance = new FirefoxDriver())
             {
-                SubmitTestPayment(seleniumInstance, result, paymentUrl);
+                AddAddressAndSubmitTestPayment(seleniumInstance, result, paymentUrl, "Mr Test", "test st", "test town", "Testeshire");
                 CheckOrderSummary(seleniumInstance);
                 EnterDummyPaymentOptions(seleniumInstance, StripeCardDetails.VALID_VISA);
                 AssertPaymentSuccess(seleniumInstance);
@@ -83,19 +83,31 @@ namespace Pwinty.Client.Test
         {
             seleniumInstance.Url = paymentUrl;
             seleniumInstance.FindElementById("Email").SendKeys("tom@pwinty.com");
-            if(String.IsNullOrEmpty(originalOrder.recipientName))
-            {
+            AssertOrderAddress(seleniumInstance, originalOrder);
+            var continueButton = seleniumInstance.FindElementById("btnAddressEntered") as IWebElement;
+            continueButton.ClickWithJavascript(seleniumInstance);
+        }
 
-            }
+        private void AssertOrderAddress(FirefoxDriver seleniumInstance, Order originalOrder)
+        {
             AssertEqualOrBothNullOrEmpty(originalOrder.recipientName, seleniumInstance.FindElementById("Name").GetAttribute("value"));
             AssertEqualOrBothNullOrEmpty(originalOrder.address1, seleniumInstance.FindElementById("Address1").GetAttribute("value"));
             AssertEqualOrBothNullOrEmpty(originalOrder.address2, seleniumInstance.FindElementById("Address2").GetAttribute("value"));
             AssertEqualOrBothNullOrEmpty(originalOrder.addressTownOrCity, seleniumInstance.FindElementById("AddressTownOrCity").GetAttribute("value"));
             AssertEqualOrBothNullOrEmpty(originalOrder.stateOrCounty, seleniumInstance.FindElementById("StateOrCounty").GetAttribute("value"));
+        }
+        private void AddAddressAndSubmitTestPayment(FirefoxDriver seleniumInstance,Order originalOrder, string paymentUrl,string name,string address1,string townOrCity,string county)
+        {
+            seleniumInstance.Url = paymentUrl;
+            seleniumInstance.FindElementById("Email").SendKeys("tom@pwinty.com");
+            AssertOrderAddress(seleniumInstance, originalOrder);
+            seleniumInstance.FindElementById("Name").SendKeys(name);
+            seleniumInstance.FindElementById("Address1").SendKeys(address1);
+            seleniumInstance.FindElementById("AddressTownOrCity").SendKeys(townOrCity);
+            seleniumInstance.FindElementById("StateOrCounty").SendKeys(county);
             var continueButton = seleniumInstance.FindElementById("btnAddressEntered") as IWebElement;
             continueButton.ClickWithJavascript(seleniumInstance);
         }
-
         private void CheckOrderSummary(FirefoxDriver seleniumInstance)
         {
             //should charge vat

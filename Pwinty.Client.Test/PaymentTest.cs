@@ -68,16 +68,30 @@ namespace Pwinty.Client.Test
             }
 
         }
-
+        public void AssertEqualOrBothNullOrEmpty(string expected,string actual)
+        {
+            if(String.IsNullOrEmpty(expected) && String.IsNullOrEmpty(actual))
+            {
+                return;
+            }
+            else
+            {
+                Assert.AreEqual(expected, actual);
+            }
+        }
         private void SubmitTestPayment(FirefoxDriver seleniumInstance,Order originalOrder, string paymentUrl)
         {
             seleniumInstance.Url = paymentUrl;
             seleniumInstance.FindElementById("Email").SendKeys("tom@pwinty.com");
-            Assert.AreEqual(originalOrder.recipientName, seleniumInstance.FindElementById("Name").GetAttribute("value"));
-            Assert.AreEqual(originalOrder.address1, seleniumInstance.FindElementById("Address1").GetAttribute("value"));
-            Assert.AreEqual(originalOrder.address2, seleniumInstance.FindElementById("Address2").GetAttribute("value"));
-            Assert.AreEqual(originalOrder.addressTownOrCity, seleniumInstance.FindElementById("AddressTownOrCity").GetAttribute("value"));
-            Assert.AreEqual(originalOrder.stateOrCounty, seleniumInstance.FindElementById("StateOrCounty").GetAttribute("value"));
+            if(String.IsNullOrEmpty(originalOrder.recipientName))
+            {
+
+            }
+            AssertEqualOrBothNullOrEmpty(originalOrder.recipientName, seleniumInstance.FindElementById("Name").GetAttribute("value"));
+            AssertEqualOrBothNullOrEmpty(originalOrder.address1, seleniumInstance.FindElementById("Address1").GetAttribute("value"));
+            AssertEqualOrBothNullOrEmpty(originalOrder.address2, seleniumInstance.FindElementById("Address2").GetAttribute("value"));
+            AssertEqualOrBothNullOrEmpty(originalOrder.addressTownOrCity, seleniumInstance.FindElementById("AddressTownOrCity").GetAttribute("value"));
+            AssertEqualOrBothNullOrEmpty(originalOrder.stateOrCounty, seleniumInstance.FindElementById("StateOrCounty").GetAttribute("value"));
             var continueButton = seleniumInstance.FindElementById("btnAddressEntered") as IWebElement;
             continueButton.ClickWithJavascript(seleniumInstance);
         }

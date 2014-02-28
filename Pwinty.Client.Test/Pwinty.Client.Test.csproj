@@ -107,6 +107,7 @@
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
+    <None Include="Configs\Live.config" />
     <None Include="Configs\Testing.config" />
     <None Include="Configs\Sandbox.config" />
     <None Include="packages.config" />

@@ -8,7 +8,7 @@ namespace Pwinty.Client
 {
     public class CatalogueResource :BaseResource
     {
-        private const string _cataloguePath = "/v2.1/Catalogue/{countryCode}/{qualityLevel}";
+        private const string _cataloguePath = "/v2/Catalogue/{countryCode}/{qualityLevel}";
         public Catalogue Get(string countryCode, QualityLevel qualityLevel)
         {
             var request = new RestRequest

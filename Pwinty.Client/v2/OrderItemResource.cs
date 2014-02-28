@@ -23,14 +23,7 @@ namespace Pwinty.Client
               };
               request.AddParameter("orderId", orderId, ParameterType.UrlSegment);
               request.AddObject(orderItem, "Type", "Url", "Copies", "Sizing", "PriceToUser", "Md5Hash");
-              //Add attributes ourselves
-              if (orderItem.Attributes != null)
-              {
-                  foreach (var attrValue in orderItem.Attributes)
-                  {
-                      request.AddParameter(String.Format("attributes.{0}", attrValue.Key), attrValue.Value);
-                  }
-              }
+
               byte[] allData = new byte[fileData.Length];
               fileData.Read(allData,0,allData.Length);
               request.AddFile("image",allData,"image.jpg");

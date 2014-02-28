@@ -12,10 +12,10 @@ namespace Pwinty.Client
  
     public class OrderResource :BaseResource
     {
-        private const string _orderPath = "/v2.1/Orders";
-        private const string _getPath = "/v2.1/Orders/{orderId}";
-        private const string _getPhotosPath = "/v2.1/Orders/{orderId}/Photos";
-        private const string _getAllPath = "/v2.1/Orders";
+        private const string _orderPath = "/v2/Orders";
+        private const string _getPath = "/v2/Orders/{orderId}";
+        private const string _getPhotosPath = "/v2/Orders/{orderId}/Photos";
+        private const string _getAllPath = "/v2/Orders";
         public OrderResource()
         {
         }
